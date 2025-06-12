@@ -1,37 +1,35 @@
 pipeline {
     agent any
-
+    
     environment {
         IMAGE_NAME = "flask-app"
         TAG = "v1"
-        CONTAINER_NAME = "flask-container"
+        CONTAINER_NAME = "flask-cont"
     }
-
+    
     stages {
         stage('Clone Code') {
             steps {
-                 git branch: 'main', url:  'https://github.com/Krutika09/Flask-Docker-Jenkins-Deploy.git'
+                git url: "https://github.com/Krutika09/Flask-Docker-Jenkins-Deploy.git", branch: "main"
+                echo "Code Clone Successfully.."
             }
         }
-
-        stage('Build Docker Image') {
+        
+        stage("Build Code") {
             steps {
-                sh "docker build -t ${IMAGE_NAME}:${TAG} ."
+                echo "This is building stage"
+                sh "docker build -t ${IMAGE_NAME} ."
             }
         }
-
-        stage('Deploy Container') {
+        
+        stage("Deploy Code") {
             steps {
-        // Stop and remove existing container if it exists
-        sh "docker rm -f flask-container || true"
-
-        // Build the updated Docker image
-        sh "docker build -t flask-app:v1 ."
-
-        // Deploy the new container
-        sh "docker run -d -p 5000:5000 --name flask-container flask-app:v1"
+                echo "This is deploying stage"
+                sh "docker rm -f ${CONTAINER_NAME} || true"
+                sh "docker build -t ${IMAGE_NAME}:${TAG}  . "
+                sh "docker run -d -p 5000:5000 --name ${CONTAINER_NAME} ${IMAGE_NAME} "
             }
         }
-   }
-    
+       
+    }
 }
