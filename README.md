@@ -104,7 +104,7 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git 'https://github.com/your-repo/flask-app.git'
+                git url: 'https://github.com/Krutika09/Flask-Docker-Jenkins-Deploy.git' , branch: 'main'
             }
         }
 
@@ -132,6 +132,7 @@ pipeline {
     }
 }
 
+
 ```
 
 ### ⚠️ Docker Permission Denied Fix (For Jenkins)
@@ -142,14 +143,9 @@ If you see this error during a Jenkins pipeline run:
 Run the following commands **on your server** to fix the issue:
 
 ```bash
-# Add Jenkins user to the Docker group
 sudo usermod -aG docker jenkins
-
-# Restart Docker and Jenkins
 sudo systemctl restart docker
 sudo systemctl restart jenkins
-
-# Reboot the instance (required for group permission to apply)
 sudo reboot
 ```
 
