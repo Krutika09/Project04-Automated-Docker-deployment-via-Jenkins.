@@ -78,7 +78,7 @@ sudo systemctl restart jenkins
 ```
 
 
-## Step 7: Jenkins Web UI Access
+## Step 7: Jenkins Web UI Access.
 
 * Open browser: `http://<EC2-PUBLIC-IP>:8080`
 * Get the admin password:
