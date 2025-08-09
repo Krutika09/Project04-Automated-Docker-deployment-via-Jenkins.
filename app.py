@@ -3,7 +3,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Deployed via Jenkins on AWS!"
+    return "Hello from Flask app deployed via Jenkins and Docker Registry!"
+
 
 @app.route('/about')
 def about():
